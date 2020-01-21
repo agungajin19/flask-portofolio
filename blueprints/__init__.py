@@ -44,9 +44,9 @@ def internal_required(fn):
 try:
     env = os.environ.get('FLASK_ENV', 'development')
     if env == 'testing':
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:agungajin19@localhost:3306/portofolio_testing'
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:agungajin19@portofolio.ce1fym8eoinv.ap-southeast-1.rds.amazonaws.com:3306/portofolio_testing'
     else:
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:agungajin19@localhost:3306/portofolio'
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://admin:agungajin19@portofolio.ce1fym8eoinv.ap-southeast-1.rds.amazonaws.com:3306/portofolio'
 except Exception as e:
     raise e
         
