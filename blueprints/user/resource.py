@@ -95,26 +95,26 @@ class UserRegister(Resource):
                 args['password'].encode()).hexdigest()
 
             user = Users(args['username'], password_digest, args['email'])
-            api_key = '59aee6ef66f26b61f4e8182096a12e94'
-            api_secret = 'c35ec9f23382bd13aa3bf4ada5782e78'
+            api_key = 'ae7375326b6063793661b40590f4c845'
+            api_secret = 'f2a15384f00c5f95a48ca5a5026a261a'
             mailjet = Client(auth=(api_key, api_secret), version='v3.1')
             data = {
                 'Messages': [
                     {
                         "From": {
-                            "Email": "nugroho@alterra.id",
-                            "Name": "agung"
+                            "Email": "easymyid10@gmail.com",
+                            "Name": "easy.my.id"
                         },
                         "To": [
                             {
-                                "Email": "agungajin19@gmail.com",
-                                "Name": "agung"
+                                "Email": args['email'],
+                                "Name": args[username]
                             }
                         ],
-                        "Subject": "Greetings from Mailjet.",
-                        "TextPart": "My first Mailjet email",
-                        "HTMLPart": "<h3>Dear passenger 1, welcome to <a href='https://www.mailjet.com/'>Mailjet</a>!</h3><br />May the delivery force be with you!",
-                        "CustomID": "AppGettingStartedTest"
+                        "Subject": "Welcome aboard {username}".format(username=args['username']),
+                        "TextPart": "Thanks for Sign Up",
+                        "HTMLPart": "<h3>Hai {username}, Welcome to  <a href='https://www.easy.my.id/'>easy.my.id</a>!</h3><br />Everyone can be smarter. Good Luck!!!!".format(username=args['username']),
+                        "CustomID": "Thanks for Sign Up"
                     }
                 ]
             }
