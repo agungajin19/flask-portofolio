@@ -5,10 +5,10 @@ os:
   - linux
 env:
   global:
-    - DOCKER_IMAGE_NAME="alta"
-    - DOCKER_HUB_ORG="ajisepulsa"
+    - DOCKER_IMAGE_NAME="container"
+    - DOCKER_HUB_ORG="agungajin19"
 before_install:
-  - openssl aes-256-cbc -K $encrypted_ebcd8b9a7750_key -iv $encrypted_ebcd8b9a7750_iv  -in deploy_rsa.enc -out deploy_rsa -d
+  - openssl aes-256-cbc -K $encrypted_dd53171bf795_key -iv $encrypted_dd53171bf795_iv -in deploy_rsa.enc -out deploy_rsa -d
   - eval "$(ssh-agent -s)"
   - chmod 600 deploy_rsa
   - ssh-add deploy_rsa
@@ -19,7 +19,7 @@ script:
 after_script:
   - docker build -t ${DOCKER_HUB_ORG}/${DOCKER_IMAGE_NAME}:backend-${TRAVIS_BUILD_ID} .
   - docker push ${DOCKER_HUB_ORG}/${DOCKER_IMAGE_NAME}:backend-${TRAVIS_BUILD_ID}
-  - docker tag ${DOCKER_HUB_ORG}/${DOCKER_IMAGE_NAME}:backend-${TRAVIS_BUILD_ID} ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:latest
-  - docker push ${DOCKER_HUB_ORG}/${DOCKER_IMAGE_NAME}:latest
+  - docker tag ${DOCKER_HUB_ORG}/${DOCKER_IMAGE_NAME}:backend-${TRAVIS_BUILD_ID} ${DOCKER_USERNAME}/${DOCKER_IMAGE_NAME}:BE2
+  - docker push ${DOCKER_HUB_ORG}/${DOCKER_IMAGE_NAME}:BE2
   - ssh-keyscan -H $SSH_IP >> ~/.ssh/known_hosts
   - ssh -v -i deploy_rsa $SSH_USER@$SSH_IP DIR=$ROOT_DIR  'bash -s' < deploy.sh
