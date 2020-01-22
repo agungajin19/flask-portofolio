@@ -108,7 +108,7 @@ class UserRegister(Resource):
                         "To": [
                             {
                                 "Email": args['email'],
-                                "Name": args[username]
+                                "Name": args['username']
                             }
                         ],
                         "Subject": "Welcome aboard {username}".format(username=args['username']),
