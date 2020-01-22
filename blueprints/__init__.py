@@ -47,7 +47,7 @@ def internal_required(fn):
 
 #################
 # DATABASE
-################
+#################
 try:
     env = os.environ.get('FLASK_ENV', 'development')
     if env == 'testing':
