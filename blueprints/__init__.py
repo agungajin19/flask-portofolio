@@ -1,9 +1,3 @@
-from blueprints.auth import bp_auth
-from blueprints.like.resource import bp_like
-from blueprints.cart.resource import bp_cart
-from blueprints.book.resource import bp_book
-from blueprints.penerbit.resource import bp_penerbit
-from blueprints.user.resource import bp_user
 import json
 import os
 from datetime import timedelta
@@ -108,6 +102,12 @@ def after_request(response):
 
 
 # from blueprints.collection.resource import bp_collection
+from blueprints.auth import bp_auth
+from blueprints.like.resource import bp_like
+from blueprints.cart.resource import bp_cart
+from blueprints.book.resource import bp_book
+from blueprints.penerbit.resource import bp_penerbit
+from blueprints.user.resource import bp_user
 
 app.register_blueprint(bp_auth, url_prefix='/user/login')
 app.register_blueprint(bp_user, url_prefix='')
