@@ -115,7 +115,7 @@ app.register_blueprint(bp_penerbit, url_prefix='')
 app.register_blueprint(bp_book, url_prefix='')
 app.register_blueprint(bp_cart, url_prefix='')
 app.register_blueprint(bp_like, url_prefix='')
-# app.register_blueprint(bp_collection, url_prefix='')
+## app.register_blueprint(bp_collection, url_prefix='')
 
 
 db.create_all()
