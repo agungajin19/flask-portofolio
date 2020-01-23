@@ -120,7 +120,7 @@ class BookPenerbitId(Resource):
             return {'status': 'NOT_FOUND'}, 404
     
     @jwt_required
-    def patch(self, id):
+    def put(self, id):
         parser = reqparse.RequestParser()
         parser.add_argument('judul', location='json')
         parser.add_argument('matapelajaran', location='json')
@@ -161,6 +161,7 @@ class BookPenerbitId(Resource):
             return {'status' : 'UNAUTHORIZED', 'message' : 'ID NOT YOURS'}, 401
         else:
             return {'status': 'NOT_FOUND'}, 404
+
     def options (self):
         return {'status' : 'oke'}, 200
     
