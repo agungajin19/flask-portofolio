@@ -107,6 +107,9 @@ class BookPenerbitId(Resource):
     def __init__(self):
         pass
 
+    def options (self):
+        return {'status' : 'oke'}, 200
+
     @jwt_required
     def get(self, id):
         claim = get_jwt_claims()
@@ -162,8 +165,7 @@ class BookPenerbitId(Resource):
         else:
             return {'status': 'NOT_FOUND'}, 404
 
-    def options (self):
-        return {'status' : 'oke'}, 200
+    
     
         
 
