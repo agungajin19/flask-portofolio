@@ -107,7 +107,7 @@ class BookPenerbitId(Resource):
     def __init__(self):
         pass
 
-    def options (self):
+    def options (self, id=None):
         return {'status' : 'oke'}, 200
 
     @jwt_required
