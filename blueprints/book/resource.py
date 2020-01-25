@@ -111,14 +111,10 @@ class BookPenerbitId(Resource):
         return {'status' : 'oke'}, 200
 
     @jwt_required
-    def get(self):
-        parser = reqparse.RequestParser()
-        parser.add_argument('book_id', location='json', required=True)
-
-        args = parser.parse_args()
+    def get(self, id):
         claim = get_jwt_claims()
         qry_penerbit = Penerbit.query.filter_by(user_id=claim['id']).first()
-        qry = Books.query.get(args['book_id'])
+        qry = Books.query.get(id)
         if qry is not None:
             if qry.penerbit_id == qry_penerbit.id:
                 return marshal(qry, Books.response_fields), 200
@@ -127,9 +123,8 @@ class BookPenerbitId(Resource):
             return {'status': 'NOT_FOUND'}, 404
     
     @jwt_required
-    def put(self):
+    def put(self, id):
         parser = reqparse.RequestParser()
-        parser.add_argument('book_id', location='json', required=True)
         parser.add_argument('judul', location='json')
         parser.add_argument('matapelajaran', location='json')
         parser.add_argument('harga', location='json')
@@ -144,7 +139,7 @@ class BookPenerbitId(Resource):
 
         claim = get_jwt_claims()
         qry_penerbit = Penerbit.query.filter_by(user_id=claim['id']).first()
-        qry = Books.query.get(args['book_id'])
+        qry = Books.query.get(id)
 
         if qry is not None:
             if qry.penerbit_id == qry_penerbit.id:
@@ -242,7 +237,7 @@ class BookPublicId(Resource):
 
 
 api.add_resource(BookPenerbit, '/penerbit/book')
-api.add_resource(BookPenerbitId, '/penerbit/bookid/')
+api.add_resource(BookPenerbitId, '/penerbit/book/<id>')
 api.add_resource(BookPublic, '/public/book','/user/book')
 api.add_resource(BookPublicId, '/public/book/<id>','/user/book/<id>')
 
