@@ -40,7 +40,6 @@ class AdminUser(Resource):
         offset = (args['p']*args['rp'])-args['rp']
 
         qry = Users.query
-        qry_penerbit = Penerbit.query
 
         # qry = Users.query.filter(Users.title.like("%"+args['name']+"%"))
 
@@ -61,7 +60,14 @@ class AdminUser(Resource):
 
         rows = []
         for row in qry.limit(args['rp']).offset(offset).all():
-            rows.append(marshal(row, Users.response_fields))
+            marshal_user = marshal(row, Users.response_fields)
+            if row.status_penerbit == True:
+                qry_penerbit=Penerbit.query.filter_by(user_id=row.id).first()
+                marshal_user['nama_penerbit'] = qry_penerbit.nama_penerbit
+            else:
+                marshal_user['nama_penerbit'] = 'None'
+
+            rows.append(marshal_user)
 
         return rows, 200
 
@@ -171,8 +177,14 @@ class UserMe(Resource):
     def get(self):
         claim = get_jwt_claims()
         qry = Users.query.get(claim['id'])
+        marshal_user = marshal(qry, Users.response_fields)
+        if marshal_user['status_penerbit'] == True:
+            qry_penerbit = Penerbit.query.filter_by(user_id=marshal_user['id']).first()
+            marshal_user['nama_penerbit'] = qry_penerbit.nama_penerbit
+        else:
+            marshal_user['nama_penerbit'] = 'None'
         if qry is not None:
-            return marshal(qry, Users.response_fields), 200
+            return marshal_user, 200
 
     def options(self):
         return {'status': 'oke'}, 200
