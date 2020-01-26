@@ -165,7 +165,7 @@ class AdminUserId(Resource):
         # db.session.commit()
         return {'status': 'Delete success'}, 200
 
-    def options(self):
+    def options(self, id=None):
         return {'status': 'oke'}, 200
 
 
